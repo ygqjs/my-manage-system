@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Divider, Space, Tabs, message, theme } from 'antd';
+import { Divider, Space, Tabs, message, notification, theme } from 'antd';
 
 import {
   AlipayOutlined,
@@ -19,6 +19,8 @@ import {
 } from '@ant-design/pro-components';
 
 import { antdImg } from '@/assets/icon';
+import { login } from '@/services/user';
+import { setToken } from '@/utils';
 
 import styles from './index.less';
 
@@ -129,6 +131,17 @@ const Page = () => {
     activeKey: loginType,
     onChange: (activeKey) => setLoginType(activeKey),
   };
+  const onFinish = async (values) => {
+    const res = await login(values);
+    if (res.success) {
+      setToken(res.data.token);
+    } else {
+      notification.error({
+        message: '登陆失败',
+        description: res.message,
+      });
+    }
+  };
   return (
     <div className={styles.container}>
       <LoginFormPage
@@ -141,6 +154,7 @@ const Page = () => {
         }}
         subTitle="基于umi+antd的管理项目"
         actions={loginFormaActionRender()}
+        onFinish={onFinish}
       >
         <Tabs {...tabsProps}>
           <Tabs.TabPane key={'account'} tab={'账号密码登录'} />
