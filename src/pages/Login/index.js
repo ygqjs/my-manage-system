@@ -18,6 +18,8 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 
+import { useModel } from 'umi';
+
 import { antdImg } from '@/assets/icon';
 import { login } from '@/services/user';
 import { setToken } from '@/utils';
@@ -32,6 +34,7 @@ const iconStyles = {
 };
 
 const Page = () => {
+  const { refresh } = useModel('@@initialState');
   const [loginType, setLoginType] = useState('account');
   const { token } = theme.useToken();
   const loginFormaActionRender = () => {
@@ -135,6 +138,7 @@ const Page = () => {
     const res = await login(values);
     if (res.success) {
       setToken(res.data.token);
+      await refresh();
     } else {
       notification.error({
         message: '登陆失败',

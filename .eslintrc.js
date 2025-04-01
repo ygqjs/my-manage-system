@@ -1,13 +1,16 @@
 module.exports = {
   root: true,
   env: {
-    browser: true,
-    es2021: true,
-    node: true,
+    browser: true, // 支持浏览器环境变量（如 window）
+    es2021: true, // 支持 ES2021 语法
+    node: true, // 支持 Node.js 环境变量（如 process）
   },
-  parser: '@babel/eslint-parser',
+  parser: '@babel/eslint-parser', // 使用 Babel 解析器支持现代 JavaScript 和 JSX
   parserOptions: {
-    sourceType: 'module',
+    sourceType: 'module', // 支持 ES 模块
+    ecmaFeatures: {
+      jsx: true, // 支持 JSX 语法
+    },
     requireConfigFile: false,
     babelOptions: {
       presets: ['@babel/preset-react'],
@@ -16,7 +19,7 @@ module.exports = {
   plugins: ['import', 'react'],
   settings: {
     react: {
-      version: 'detect',
+      version: 'detect', // 自动检测 React 版本
     },
   },
   rules: {
@@ -44,10 +47,19 @@ module.exports = {
       },
     ],
     'no-debugger': 'error',
+    // 检测已定义但未使用的变量
     'no-unused-vars': [
       'error',
-      { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
+      {
+        vars: 'all', // 检查所有变量
+        args: 'after-used', // 检查函数参数中最后一个使用后的未使用参数
+        ignoreRestSiblings: true, // 忽略解构中的剩余变量（如 ...rest）
+      },
     ],
     'react/jsx-uses-vars': 'error', // 添加此规则
+    // 检测未定义却使用的变量
+    'no-undef': 'error',
+    // 确保 JSX 中的变量被正确标记为已使用，避免 no-unused-vars 误报
+    'react/jsx-uses-vars': 'error',
   },
 };
