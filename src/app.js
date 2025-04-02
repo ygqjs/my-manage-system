@@ -1,5 +1,6 @@
 import { history } from 'umi';
 
+import RightContentRender from '@/layouts/RightContentRender';
 import { getUserInfo } from '@/services/user';
 import { isTokenValid } from '@/utils';
 import requestCustom from '@/utils/request';
@@ -33,10 +34,22 @@ export async function getInitialState() {
 
 export const layout = () => {
   return {
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    title: 'manage-system',
+    logo: '/img/antd.png',
     menu: {
       locale: false,
+      defaultOpenAll: true, // 是否默认展开所有菜单
     },
+    siderWidth: 200,
+    layout: 'mix',
+    contentWidth: 'Fluid',
+    contentStyle: {
+      padding: '20px',
+      backgroundColor: '#f0f2f5',
+    },
+    collapsedButtonRender: false,
+    disableContentMargin: false,
+    rightContentRender: RightContentRender,
   };
 };
 

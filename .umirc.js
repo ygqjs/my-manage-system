@@ -9,9 +9,7 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {},
-  layout: {
-    title: '@umijs/max',
-  },
+  layout: {},
   routes,
   npmClient: 'pnpm',
   chainWebpack(config) {
