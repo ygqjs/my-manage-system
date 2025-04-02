@@ -19,7 +19,6 @@ export async function getInitialState() {
   if (isTokenValid()) {
     // token 有效
     // 请求用户信息
-    console.log('111');
     userInfo = await fetchUserInfo();
     [loginPath, '', '/'].includes(location.pathname) && history.push('/home');
   } else {

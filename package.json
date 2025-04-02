@@ -15,7 +15,9 @@
     "@ant-design/pro-components": "^2.8.6",
     "@umijs/max": "^4.4.6",
     "ahooks": "^3.8.4",
-    "antd": "^5.4.0"
+    "antd": "^5.4.0",
+    "lodash": "^4.17.21",
+    "react-grid-layout": "^1.5.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.27.0",

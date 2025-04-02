@@ -16,6 +16,13 @@ export default [
     component: './Home',
   },
   {
+    path: '/full-screen',
+    name: '大屏',
+    icon: 'smile',
+    component: './FullScreen',
+    layout: false,
+  },
+  {
     path: '*',
     component: './404', // 指向一个404页面组件
   },
