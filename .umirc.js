@@ -37,7 +37,7 @@ export default defineConfig({
       .end();
   },
   alias: {
-    '@': resolve(__dirname, './src'),
+    '@': './src',
   },
   verifyCommit: {
     disable: true, // 禁用提交信息检查

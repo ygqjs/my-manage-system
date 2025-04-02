@@ -23,6 +23,12 @@ export default [
     layout: false,
   },
   {
+    path: '/users',
+    name: '用户列表',
+    icon: 'smile',
+    component: './Users',
+  },
+  {
     path: '*',
     component: './404', // 指向一个404页面组件
   },
