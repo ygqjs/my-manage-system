@@ -74,3 +74,44 @@ export function filterEmptyValues(value) {
   }
   return value;
 }
+
+/**
+ * 获取校验正则
+ * @param {string} regExpName 正则名称
+ */
+export function getRegExp(regExpName) {
+  const regExpList = {
+    password:
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@$.\\_\\-])[a-zA-Z\d!@$.\\_\\-]{8,128}$/,
+    name: /^[a-zA-Z0-9!@$._-]{2,16}$/,
+    nameZh: /^[a-zA-Z0-9\u4e00-\u9fa5!@$._-]{2,16}$/,
+    ip: /^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/,
+    ipAndPort:
+      /^(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])):(([1-9](\d{0,4}))$|^([1-5]\d{4})$|^(6[0-4]\d{3})$|^(65[0-4]\d{2})$|^(655[0-2]\d)$|^(6553[0-5]))$/,
+    email:
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  };
+  return regExpList[regExpName];
+}
+
+// 计算文本宽度 用dom方法计算
+export function calculateTextWidth(
+  text,
+  styles = {
+    fontSize: '14px',
+    fontFamily:
+      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+  },
+) {
+  const span = document.createElement('span');
+  span.style.visibility = 'hidden';
+  span.style.position = 'absolute';
+  for (const [key, value] of Object.entries(styles)) {
+    span.style[key] = value;
+  }
+  span.innerText = text;
+  document.body.appendChild(span);
+  const width = span.offsetWidth;
+  document.body.removeChild(span);
+  return width;
+}
