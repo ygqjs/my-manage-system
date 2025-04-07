@@ -37,7 +37,7 @@ export const layout = () => {
     title: 'manage-system',
     logo: '/img/antd.png',
     menu: {
-      locale: false,
+      locale: true,
       defaultOpenAll: true, // 是否默认展开所有菜单
     },
     siderWidth: 200,

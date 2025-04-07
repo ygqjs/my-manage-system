@@ -4,6 +4,7 @@ import { KeyOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 
 import { useModel } from '@umijs/max';
 
+import { LangButton } from '@/components';
 import { logout } from '@/services/user';
 import { removeToken } from '@/utils';
 
@@ -69,6 +70,9 @@ const RightContentRender = () => {
           <span>{username}</span>
         </span>
       </Dropdown>
+      <div className={styles.langBtn}>
+        <LangButton />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { defineConfig } from '@umijs/max';
 import EslintWebpackPlugin from 'eslint-webpack-plugin';
 import { resolve } from 'path';
+import localIconList from './src/icons';
 import routes from './src/routes';
 
 export default defineConfig({
@@ -12,6 +13,10 @@ export default defineConfig({
   layout: {},
   routes,
   npmClient: 'pnpm',
+  locale: {
+    default: 'zh-CN',
+    baseSeparator: '-',
+  },
   chainWebpack(config) {
     config
       .plugin('eslint-webpack-plugin')
@@ -39,6 +44,10 @@ export default defineConfig({
   },
   verifyCommit: {
     disable: true, // 禁用提交信息检查
+  },
+  // 启用icons集
+  icons: {
+    include: [...localIconList],
   },
   proxy: {
     '/api': {

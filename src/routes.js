@@ -4,14 +4,14 @@ export default [
     redirect: '/login',
   },
   {
-    name: '登陆',
+    name: 'login',
     path: '/login',
     component: './Login',
     layout: false,
   },
   {
     path: '/home',
-    name: '首页',
+    name: 'home',
     icon: 'smile',
     component: './Home',
   },
@@ -24,7 +24,7 @@ export default [
   },
   {
     path: '/users',
-    name: '用户列表',
+    name: 'users',
     icon: 'smile',
     component: './Users',
   },
