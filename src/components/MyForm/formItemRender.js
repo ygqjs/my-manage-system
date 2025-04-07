@@ -5,7 +5,7 @@ import { Col, Form } from 'antd';
 import _isNumber from 'lodash/isNumber';
 
 import * as FormItem from './fields';
-import { getBuiltInRules, getLabelWidth } from './validate';
+import { getBuiltInRules, getLabelWidth } from './utils';
 const formItemRender = ({ formItem = [], formProps, columns }) => {
   // 过滤不需要渲染的表单项
   const finalFormItem = formItem.filter((item) => item.isRender !== false);

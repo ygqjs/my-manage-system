@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { Form, Row } from 'antd';
+import { Button, Form, Row } from 'antd';
 
 import _assign from 'lodash/assign';
 import _isArray from 'lodash/isArray';
@@ -34,7 +34,9 @@ const MyForm = ({
     // formItem 支持对象或者数组传入
     // 如果是数组，说明没有分区域，需要转化为对象
     // 如果是对象，说明有区域划分设置
-    const formItemObj = _isArray(formItem) ? { default: formItem } : formItem;
+    const formItemObj = _isArray(formItem)
+      ? { default: { formItem } }
+      : formItem;
     // toPairs对对象进行[[key1, value1], [key2, value2]] 转化；sortBy对数组进行key为order排序
     const sortedFormItem = _sortBy(_toPairs(formItemObj), ['order']);
     return _map(sortedFormItem, ([areaKey, areaValue]) => {

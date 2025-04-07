@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 
-import { Button } from 'antd';
+import { Button, message, notification } from 'antd';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 
 import { useSetState } from 'ahooks';
 
-import { getUserList } from '@/services/user';
+import { addUser, getUserList, updateUser } from '@/services/user';
 
 import UserModal from './userModal';
 
@@ -16,8 +16,9 @@ const Users = () => {
   const [state, setState] = useSetState({
     userModalOpen: false,
     isCreate: false,
+    curVal: {},
   });
-  const { userModalOpen } = state;
+  const { userModalOpen, isCreate, curVal } = state;
   const request = async (params) => {
     const res = await getUserList({ ...params });
     const { data, total } = res.data;
@@ -52,15 +53,17 @@ const Users = () => {
     {
       title: '操作',
       valueType: 'option',
-      render: () => {
+      render: (_, record) => {
         return [
           <a
             key="edit"
-            onClick={() => setState({ userModalOpen: true, isCreate: false })}
+            onClick={() =>
+              setState({ userModalOpen: true, isCreate: false, curVal: record })
+            }
           >
             编辑
           </a>,
-          <a key="delete" type="primary" danger>
+          <a key="delete" type="primary">
             删除
           </a>,
         ];
@@ -69,14 +72,17 @@ const Users = () => {
   ];
   const toolBarRender = () => {
     const createBtnProps = {
-      key: 'create',
       type: 'primary',
       icon: <PlusOutlined />,
       onClick: () => {
         setState({ userModalOpen: true, isCreate: true });
       },
     };
-    return [<Button {...createBtnProps}>Create</Button>];
+    return [
+      <Button key="create" {...createBtnProps}>
+        Create
+      </Button>,
+    ];
   };
   const proTableProps = {
     rowKey: 'id',
@@ -88,12 +94,25 @@ const Users = () => {
     toolBarRender,
   };
   const userModalProps = {
+    isCreate,
+    curVal,
     open: userModalOpen,
     onCancel: () => {
       setState({ userModalOpen: false });
     },
-    onOk: () => {
-      setState({ userModalOpen: false });
+    onOk: async (params) => {
+      const res = isCreate ? await addUser(params) : await updateUser(params);
+      console.log('res', res);
+      if (res.success) {
+        message.success(isCreate ? '新增成功' : '修改成功');
+        setState({ userModalOpen: false });
+        actionRef.current.reload();
+      } else {
+        notification.error({
+          message: isCreate ? '新增失败' : '修改失败',
+          description: res.message,
+        });
+      }
     },
   };
   return (

@@ -1,9 +1,7 @@
 import { InputNumber } from 'antd';
 
-import { getFormatMessage } from '@locales';
 import './index.less';
 
-const formatMessage = getFormatMessage();
 export default ({ value = [], onChange }) => {
   const [min, max] = value;
   // const { notFieldProps, ...componentProps } = props;
@@ -30,7 +28,7 @@ export default ({ value = [], onChange }) => {
         max={65535}
         value={min}
         onChange={onMinChange}
-        placeholder={formatMessage({ id: 'XForm.portRange.portMinPh' })}
+        placeholder="请输入最小端口号"
         className="port-range-input"
         style={{ width: '50%' }} // 以 50% 的宽度展示
       />
@@ -40,7 +38,7 @@ export default ({ value = [], onChange }) => {
         max={65535}
         value={max}
         onChange={onMaxChange}
-        placeholder={formatMessage({ id: 'XForm.portRange.portMaxPh' })}
+        placeholder="请输入最大端口号"
         className="port-range-input"
         style={{ width: '50%' }}
       />

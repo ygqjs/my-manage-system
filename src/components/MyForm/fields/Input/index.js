@@ -5,7 +5,7 @@ import { Button, Input, InputNumber } from 'antd';
 import _isPlainObject from 'lodash/isPlainObject';
 import _isString from 'lodash/isString';
 
-import { formItemRender } from '../../FormItem';
+import formItemRender from '../../formItemRender';
 
 // 当 前缀/后缀 的值是数组时，渲染为下拉选择框
 // addon 前缀/后缀属性，addonSelectProps 给前缀/后缀渲染为下拉框的配置属性
