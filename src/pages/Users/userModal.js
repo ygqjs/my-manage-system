@@ -30,7 +30,7 @@ const UserModal = ({
   }, [open]);
   const onFinish = async (values) => {
     setState({ confirmLoading: true });
-    onOk && (await onOk(values));
+    onOk && (await onOk({ ...values, id: curVal?.id }));
     setState({ confirmLoading: false });
   };
   const modalProps = {
@@ -53,6 +53,7 @@ const UserModal = ({
         type: 'input',
         builtInRules: ['name', 'noSpacesAround'],
         rules: [{ required: true }],
+        disabled: !isCreate,
       },
       {
         name: 'password',

@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 
-import { Button, message, notification } from 'antd';
+import { Button, message, notification, Popconfirm } from 'antd';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 
 import { useSetState } from 'ahooks';
 
-import { addUser, getUserList, updateUser } from '@/services/user';
+import { addUser, deleteUser, getUserList, updateUser } from '@/services/user';
 
 import UserModal from './userModal';
 
@@ -27,6 +27,18 @@ const Users = () => {
       success: res.success,
       total: total,
     };
+  };
+  const onClickDelete = async (username) => {
+    const res = await deleteUser({ username });
+    if (res.success) {
+      message.success('删除成功');
+      actionRef.current.reload();
+    } else {
+      notification.error({
+        message: '删除失败',
+        description: res.message,
+      });
+    }
   };
   const columns = [
     {
@@ -63,9 +75,15 @@ const Users = () => {
           >
             编辑
           </a>,
-          <a key="delete" type="primary">
-            删除
-          </a>,
+          <Popconfirm
+            title="删除"
+            description={`确定删除吗？删除后不可恢复！`}
+            onConfirm={() => onClickDelete(record.username)}
+            okText="确定"
+            cancelText="取消"
+          >
+            <a key="delete">删除</a>
+          </Popconfirm>,
         ];
       },
     },
@@ -102,7 +120,6 @@ const Users = () => {
     },
     onOk: async (params) => {
       const res = isCreate ? await addUser(params) : await updateUser(params);
-      console.log('res', res);
       if (res.success) {
         message.success(isCreate ? '新增成功' : '修改成功');
         setState({ userModalOpen: false });
