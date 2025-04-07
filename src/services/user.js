@@ -8,6 +8,14 @@ export async function login(params = {}) {
   });
 }
 
+// 登出
+export async function logout() {
+  return request('/user/logout', {
+    method: 'get',
+    params: {},
+  });
+}
+
 // 获取用户信息
 export async function getUserInfo() {
   return request('/user/user-info', {

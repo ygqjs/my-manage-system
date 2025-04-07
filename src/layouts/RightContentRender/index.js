@@ -1,19 +1,46 @@
-import { Avatar, Dropdown } from 'antd';
+import { Avatar, Dropdown, message, notification } from 'antd';
 
 import { KeyOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 
 import { useModel } from '@umijs/max';
 
+import { logout } from '@/services/user';
+import { removeToken } from '@/utils';
+
 import styles from './index.less';
 
 const RightContentRender = () => {
-  const { initialState } = useModel('@@initialState');
+  const { initialState, refresh } = useModel('@@initialState');
   const { username } = initialState || {};
+
+  // 退出登录
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res.success) {
+      removeToken();
+      await refresh();
+      message.success('登出成功');
+    } else {
+      notification.error({
+        message: '登出失败',
+        description: res?.message,
+      });
+    }
+  };
+
+  const onMenuClick = (event) => {
+    const { key } = event;
+    if (key === 'changePass') {
+    } else if (key === 'logout') {
+      console.log('logout');
+      handleLogout();
+    }
+  };
 
   const dropdownProps = {
     placement: 'bottom',
     menu: {
-      onClick: () => {},
+      onClick: onMenuClick,
       items: [
         {
           key: 'changePass',
