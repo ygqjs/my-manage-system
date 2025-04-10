@@ -29,6 +29,11 @@ export default [
     component: './Users',
   },
   {
+    path: '/large-file-upload',
+    name: 'largeFileUpload',
+    component: './LargeFileUpload',
+  },
+  {
     path: '*',
     component: './404', // 指向一个404页面组件
   },
