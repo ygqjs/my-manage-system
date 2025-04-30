@@ -1,0 +1,38 @@
+.container {
+  width: 800px;
+  height: 700px;
+  background: black;
+  color: gray;
+  padding: 10px;
+  text-align: center;
+
+  .lrcContainer {
+    height: 600px;
+    overflow: hidden;
+
+    ul {
+      list-style: none;
+      overflow: hidden;
+
+      li {
+        height: 30px;
+        line-height: 30px;
+      }
+
+      .active {
+        color: #fff;
+        font-size: 20px;
+        transition: 0.2s;
+        transform: scale(1.2);
+        height: 50px;
+        line-height: 50px;
+      }
+    }
+  }
+
+  audio {
+    margin-bottom: 10px;
+    width: 500px;
+    height: 40px;
+  }
+}

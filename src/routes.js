@@ -34,6 +34,21 @@ export default [
     component: './LargeFileUpload',
   },
   {
+    path: '/real-life-example',
+    name: 'realLifeExample',
+    routes: [
+      {
+        path: '/real-life-example',
+        redirect: '/real-life-example/music',
+      },
+      {
+        path: '/real-life-example/music',
+        name: 'music',
+        component: './RealLifeExample/Music',
+      },
+    ],
+  },
+  {
     path: '*',
     component: './404', // 指向一个404页面组件
   },
